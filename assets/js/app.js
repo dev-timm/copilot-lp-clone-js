@@ -1,3 +1,5 @@
+// LOGOSLIDER
+
 // Import CSS and image paths dynamically for use in JavaScript
 const styles = {
   sliderContainer: 'slider-container',
@@ -67,4 +69,118 @@ function LogoSlider() {
 const hero1 = document.getElementById('hero1'); // Replace 'app' with your container ID
 if (hero1) {
   hero1.appendChild(LogoSlider());
+}
+
+// NAVBAR
+
+const navbarStyles = {
+  navContainer: 'nav-container',
+  navMain: 'nav-main',
+  linksContainer: 'links-container',
+  navLink: 'nav-link',
+  rightNav: 'right-nav',
+  linkBtn: 'link-btn',
+  searchContainer: 'search-container',
+  searchIcon: 'search-icon',
+  openSearchIcon: 'open-search-icon',
+  navToggle: 'nav-toggle',
+  showContainer: 'show-container',
+};
+
+function Navbar() {
+  let showLinks = false;
+  const menuRef = document.createElement('ul');
+
+  const toggleLinks = () => {
+    showLinks = !showLinks;
+    if (showLinks) {
+      menuRef.classList.add(navbarStyles.showContainer);
+    } else {
+      menuRef.classList.remove(navbarStyles.showContainer);
+    }
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef && !menuRef.contains(event.target)) {
+      showLinks = false;
+      menuRef.classList.remove(navbarStyles.showContainer);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+
+  const navContainer = document.createElement('div');
+  navContainer.className = navbarStyles.navContainer;
+
+  const navMain = document.createElement('div');
+  navMain.className = navbarStyles.navMain;
+
+  const logo = document.createElement('div');
+  logo.innerHTML = '<!-- Logo Here -->'; // Replace with your logo logic
+  navMain.appendChild(logo);
+
+  const navToggle = document.createElement('button');
+  navToggle.className = navbarStyles.navToggle;
+  navToggle.innerHTML = `<img src="./assets/images/mobile-menu.svg" alt="mobile menu icon" />`;
+  navToggle.addEventListener('click', toggleLinks);
+  navMain.appendChild(navToggle);
+
+  menuRef.className = navbarStyles.linksContainer;
+  const links = [
+    'Product',
+    'Solutions',
+    'Resources',
+    'Open Source',
+    'Enterprise',
+    'Pricing',
+  ];
+
+  links.forEach((link) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.className = navbarStyles.navLink;
+    a.innerHTML = `${link} <img src="./assets/images/chevron-down.svg" alt="chevron" />`;
+    a.addEventListener('click', () => {
+      showLinks = false;
+      menuRef.classList.remove(navbarStyles.showContainer);
+    });
+    li.appendChild(a);
+    menuRef.appendChild(li);
+  });
+
+  navMain.appendChild(menuRef);
+
+  const rightNav = document.createElement('div');
+  rightNav.className = navbarStyles.rightNav;
+
+  const searchContainer = document.createElement('div');
+  searchContainer.className = navbarStyles.searchContainer;
+  searchContainer.innerHTML = `
+    <input type="search" placeholder="Search or jump to..." />
+    <img src="./assets/images/search.svg" alt="search icon" class="${navbarStyles.searchIcon}" />
+    <img src="./assets/images/open-search.svg" alt="open search icon" class="${navbarStyles.openSearchIcon}" />
+  `;
+  rightNav.appendChild(searchContainer);
+
+  const signIn = document.createElement('a');
+  signIn.href = '#';
+  signIn.innerText = 'Sign in';
+  rightNav.appendChild(signIn);
+
+  const signUp = document.createElement('a');
+  signUp.href = '#';
+  signUp.className = navbarStyles.linkBtn;
+  signUp.innerText = 'Sign Up';
+  rightNav.appendChild(signUp);
+
+  navContainer.appendChild(navMain);
+  navContainer.appendChild(rightNav);
+
+  return navContainer;
+}
+
+const navbar = document.getElementById('navbar');
+if (navbar) {
+  navbar.appendChild(Navbar());
 }
