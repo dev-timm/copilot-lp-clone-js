@@ -185,6 +185,26 @@ a {
   }
 }
 
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 77%;
+  gap: 32px;
+}
+
+.section-header h2 {
+  text-align: center;
+}
+
+.header-text {
+  color: var(--grey100);
+  text-align: center;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.16px;
+  width: 84%;
+}
+
 /* HERO */
 
 .hero {
@@ -195,20 +215,20 @@ a {
   gap: 72px;
 }
 
-.heroBg {
+.hero-bg {
   position: absolute; /* Ensures it ignores the parent element and stays relative to the viewport */
   top: 0;
   left: 0;
   width: 100vw; /* Full width of the viewport */
   height: 150vh; /* Full height of the viewport */
-  background-image: url('../assets/hero-bg.jpg');
+  background-image: url('../images/hero-bg.jpg');
   background-size: cover; /* Scales the image to cover the entire viewport */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents repeating */
   z-index: -1; /* Pushes it behind other content */
 }
 
-.heroLabel {
+.hero-label {
   display: flex;
   width: 172px;
   height: 34px;
@@ -221,12 +241,69 @@ a {
   background: #121940;
 }
 
-.heroCode {
+.hero-code {
   width: 85%;
 }
 
 @media screen and (max-width: 1250px) {
   .hero {
     padding: 56px 40px;
+  }
+}
+
+/* LOGO SLIDER */
+
+/* Container */
+.slider-container {
+  position: relative;
+  width: 85%; /* Adjust width as needed */
+  overflow: hidden; /* Hide overflow */
+}
+
+/* Slider */
+.slider {
+  display: flex;
+  gap: 80px; /* Spacing between logos */
+  width: max-content;
+  animation: slide 100s linear infinite; /* Smooth sliding animation */
+}
+
+/* Logos */
+.slider img {
+  object-fit: contain; /* Maintain aspect ratio */
+  user-select: none;
+}
+
+.slider.paused {
+  animation-play-state: paused;
+}
+
+/* Fade effects */
+.fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px; /* Width of fade area */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fade-left {
+  left: 0;
+  background: linear-gradient(to right, var(--grey900), rgba(255, 255, 255, 0));
+}
+
+.fade-right {
+  right: 0;
+  background: linear-gradient(to left, var(--grey900), rgba(255, 255, 255, 0));
+}
+
+/* Sliding animation */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
